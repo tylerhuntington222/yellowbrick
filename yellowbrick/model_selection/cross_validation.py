@@ -114,7 +114,7 @@ class CVScores(ModelVisualizer):
         self.color = color
         self.scoring = scoring
 
-    def fit(self, X, y, **kwargs):
+    def fit(self, X, y, eager_draw=False, **kwargs):
         """
         Fits the learning curve with the wrapped model to the specified data.
         Draws training and test score curves and saves the scores to the
@@ -141,7 +141,8 @@ class CVScores(ModelVisualizer):
         )
         self.cv_scores_mean_ = self.cv_scores_.mean()
 
-        self.draw()
+        if eager_draw:
+            self.draw()
         return self
 
     def draw(self, **kwargs):

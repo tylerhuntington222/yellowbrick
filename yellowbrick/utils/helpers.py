@@ -130,17 +130,15 @@ def get_model_name(model):
     -------
     name : string
         The name of the model or pipeline.
-    """
     if not is_estimator(model):
         raise YellowbrickTypeError(
             "Cannot detect the model name for non estimator: '{}'".format(type(model))
         )
-
+    """
+    if isinstance(model, Pipeline):
+        return get_model_name(model.steps[-1][-1])
     else:
-        if isinstance(model, Pipeline):
-            return get_model_name(model.steps[-1][-1])
-        else:
-            return model.__class__.__name__
+        return model.__class__.__name__
 
 
 def has_ndarray_int_columns(features, X):
